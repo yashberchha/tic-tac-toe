@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Square from "./Square";
+import toast from "react-hot-toast";
 
 export default function Board() {
   const [grid, setGrid] = useState(Array(9).fill(null));
@@ -32,9 +33,16 @@ export default function Board() {
   let status = "";
 
   if (isOver) {
-    status = `Winner: ${xTurn ? "O" : "X"}`;
+    const winner = xTurn ? "O" : "X";
+    status = `Winner: ${winner}`;
+    toast(`${winner} Won`, {
+      icon: "👏",
+    });
   } else if (count === 9) {
     status = "Game Tied";
+    toast("Game Tied", {
+      icon: "⚠️",
+    });
   } else {
     status = `Next Player: ${xTurn ? "X" : "O"}`;
   }
@@ -44,7 +52,6 @@ export default function Board() {
     }
 
     grid[index] = xTurn ? "X" : "O";
-
     setGrid([...grid]);
     setXTurn(!xTurn);
     setCount(count + 1);
@@ -61,21 +68,42 @@ export default function Board() {
       <div className="heading">
         {isOver ? <div>{status}</div> : <div>{status}</div>}
       </div>
+
       <div className="board">
         <div className="row">
-          <Square value={grid[0]} onClick={() => handleClick(0)} />
-          <Square value={grid[1]} onClick={() => handleClick(1)} />
-          <Square value={grid[2]} onClick={() => handleClick(2)} />
+          <div className="box-0">
+            <Square value={grid[0]} onClick={() => handleClick(0)} />
+          </div>
+          <div className="box-1">
+            <Square value={grid[1]} onClick={() => handleClick(1)} />
+          </div>
+          <div className="box-2">
+            <Square value={grid[2]} onClick={() => handleClick(2)} />
+          </div>
         </div>
+
         <div className="row">
-          <Square value={grid[3]} onClick={() => handleClick(3)} />
-          <Square value={grid[4]} onClick={() => handleClick(4)} />
-          <Square value={grid[5]} onClick={() => handleClick(5)} />
+          <div className="box-3">
+            <Square value={grid[3]} onClick={() => handleClick(3)} />
+          </div>
+          <div className="box-4">
+            <Square value={grid[4]} onClick={() => handleClick(4)} />
+          </div>
+          <div className="box-5">
+            <Square value={grid[5]} onClick={() => handleClick(5)} />
+          </div>
         </div>
+
         <div className="row">
-          <Square value={grid[6]} onClick={() => handleClick(6)} />
-          <Square value={grid[7]} onClick={() => handleClick(7)} />
-          <Square value={grid[8]} onClick={() => handleClick(8)} />
+          <div className="box-6">
+            <Square value={grid[6]} onClick={() => handleClick(6)} />
+          </div>
+          <div className="box-7">
+            <Square value={grid[7]} onClick={() => handleClick(7)} />
+          </div>
+          <div className="box-8">
+            <Square value={grid[8]} onClick={() => handleClick(8)} />
+          </div>
         </div>
       </div>
 
