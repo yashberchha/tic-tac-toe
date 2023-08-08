@@ -36,7 +36,7 @@ export default function Board() {
   } else if (count === 9) {
     status = "Game Tied";
   } else {
-    status = `Turn: ${xTurn ? "X" : "O"}`;
+    status = `Next Player: ${xTurn ? "X" : "O"}`;
   }
   function handleClick(index) {
     if (grid[index] || isOver) {
